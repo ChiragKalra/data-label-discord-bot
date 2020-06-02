@@ -46,7 +46,7 @@ class MyClient(discord.Client):
             open("labels.csv", "a").write('\n{0},{1}'.format(index, message.clean_content))
             await display_message(message)
 
-        elif _content.find('undo') > -1 and bot_state:
+        elif _content == 'undo' and bot_state:
             await message.channel.send("Undoing last label")
 
             # remove last label from file
