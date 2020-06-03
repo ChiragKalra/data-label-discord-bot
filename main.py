@@ -3,9 +3,10 @@ import os
 
 import discord
 
+root = 'C:/Users/bruhascended/PycharmProjects/SMS/pruned_db/'
+
 token = open('token', 'r').read()
-data = list(csv.reader(
-    open('C:/Users/bruhascended/PycharmProjects/SMS/pruned_db/pruned_unlabelled_all.csv', encoding='utf8')))
+data = list(csv.reader(open(root + 'human.csv', encoding='utf8')))
 
 bot_state = False
 
