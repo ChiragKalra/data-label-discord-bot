@@ -7,13 +7,25 @@ root = 'C:/Users/bruhascended/PycharmProjects/SMS/pruned_db/'
 
 token = open('token', 'r').read()
 data = list(csv.reader(open(root + 'human.csv', encoding='utf8')))
+same = list(csv.reader(open(root + 'same.csv', encoding='utf8')))
+
+distinct = []
+
+for twins in same:
+    distinct.append(twins[0])
 
 bot_state = False
 
 
 async def display_message(message):
+    global bot_state
     index = int(open('pos', 'r').read())
-    to_send = 'sms number #{0[0]}\nSender: {0[1]};\n{0[3]}'.format(data[index + 1])
+    if index < len(distinct):
+        to_send = 'sms number #{0[0]}\nSender: {0[1]};\n{0[3]}'.format(data[distinct[index]])
+    else:
+        bot_state = False
+        to_send = 'All of data set is labelled!'\
+                  '------------END------------\n'
     await message.channel.send(to_send)
 
 
@@ -43,8 +55,8 @@ class MyClient(discord.Client):
 
         elif _content.isdigit() and int(_content) in range(1, 6) and bot_state:
             index = int(open('pos', 'r').read())
-            open('pos', 'w').write(str(index+1))
-            open("labels.csv", "a").write('\n{0},{1}'.format(index, message.clean_content))
+            open('pos', 'w').write(str(index))
+            open("labels.csv", "a").write('\n{0},{1}'.format(distinct[index], message.clean_content))
             await display_message(message)
 
         elif _content == 'undo' and bot_state:
