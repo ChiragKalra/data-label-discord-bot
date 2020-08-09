@@ -1,4 +1,4 @@
-# data-label-discord-bot
+# Data Label Discord Bot
 
 ## About
 This discord bot is part of a ML project I made. I used this bot to label thousands of data samples with the help of other people on discord.
